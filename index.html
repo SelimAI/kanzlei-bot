@@ -8,24 +8,31 @@
   </head>
   <body>
     <h1>Willkommen beim Kanzlei Bot!</h1>
-    <p>Benutzer werden geladen...</p>
+     <script type="module">
+  const supabaseUrl = 'https://kanzlei-bot.supabase.co';
+  const supabaseKey = 'eyJhbgc...'; // dein echter Key
+  const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-    <script type=module"
-      const supabaseUrl = 'https://kanzlei-bot.supabase.co';
-      const supabaseKey = 'eyJhbGci...'; // dein echter Key
-      const supabase = supabase.createClient(supabaseUrl, supabaseKey);
-      const supabase = supabase.createClient(supabaseUrl, supabaseKey);
-      async function ladeBenutzer() {
-        let { data: users, error } = await supabase
-          .from('users')
-          .select('*');
+  async function ladeBenutzer() {
+    const { data: users, error } = await supabase
+      .from('users')
+      .select('*');
 
-        if (error) {
-          console.error('Fehler beim Laden:', error);
-        } else {
-          console.log('Benutzer:', users);
-        }
-      }
+    const ausgabe = document.createElement('ul');
 
-      ladeBenutzer();
-    </script
+    if (error) {
+      console.error('Fehler beim Laden:', error);
+      ausgabe.innerText = 'Fehler beim Laden der Benutzer.';
+    } else {
+      users.forEach(user => {
+        const li = document.createElement('li');
+        li.textContent = user.email;
+        ausgabe.appendChild(li);
+      });
+    }
+
+    document.body.appendChild(ausgabe);
+  }
+
+  ladeBenutzer();
+</script>
