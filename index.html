@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kanzlei Bot</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  </head>
+  <body>
+    <h1>Willkommen beim Kanzlei Bot!</h1>
+    <p>Benutzer werden geladen...</p>
+
+    <script>
+      const supabaseUrl = 'https://kanzlei-bot.supabase.co';
+      const supabaseKey = 'eyJhbGci...'; // dein echter Key
+      const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+      async function ladeBenutzer() {
+        let { data: users, error } = await supabase
+          .from('users')
+          .select('*');
+
+        if (error) {
+          console.error('Fehler beim Laden:', error);
+        } else {
+          console.log('Benutzer:', users);
+        }
+      }
+
+      ladeBenutzer();
+    </script>
+  </body>
+</html>
